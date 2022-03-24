@@ -34,4 +34,3 @@ cidades.sort((a, b) => {
 })
 
 console.log(cidades)
-dd
