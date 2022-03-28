@@ -28,7 +28,7 @@
 
 // _Dica: Dê uma olhadinha em find, map, if..._
 
-const contasClientes = [
+let contasDeClientes = [
   {
     id: 1,
     saldo: 500
@@ -42,14 +42,38 @@ const contasClientes = [
     saldo: 50
   }
 ]
-
-const sacar = (id, valor) => {
-  let conta = contasClientes.find(clienteId => clienteId.id === id);
-  if (conta !== undefined) {
-    if( valor <= 0) {
-      console.log("Valor inválido")
-      return
-    }
-    if(valor > cliente.saldo - valor)
-    console.log()
-   }}
+const atualizaSaldo = (id, saldo) => {
+  contasDeClientes = contasDeClientes.map(conta =>
+    conta.id === id ? { ...conta, saldo } : conta
+  )
+  console.log(`Seu saldo atual é R$ ${saldo}`)
+} // vai atualizar o array usando o spread.
+const saque = (id, valor) => {
+  let clienteId = contasDeClientes.find(cliente => cliente.id === id)
+  let conta = clienteId.saldo
+  if (valor <= 0) {
+    console.log(`Valor inválido!`)
+  } else if (valor > clienteId.saldo) {
+    console.log('Saldo insuficiente!')
+    console.log('Saldo atual: ' + clienteId.saldo)
+  } else if (valor > 0 && valor < clienteId.saldo) {
+    console.log(`Saque realizado com sucesso!`)
+    const saldo = clienteId.saldo - valor
+    atualizaSaldo(id, saldo)
+  }
+}
+const deposito = (id, valor) => {
+  let clienteId = contasDeClientes.find(cliente => cliente.id === id)
+  let conta = clienteId.saldo
+  if (valor <= 0) {
+    console.log(`Valor inválido!`)
+  } else if (valor > 0) {
+    console.log(`Deposito realizado com sucesso!`)
+    const saldo = clienteId.saldo + valor
+    atualizaSaldo(id, saldo)
+  }
+}
+saque(1, -50)
+deposito(1, 100)
+saque(1, 40)
+saque(1, 50)
